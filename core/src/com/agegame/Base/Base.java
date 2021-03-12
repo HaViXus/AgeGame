@@ -5,6 +5,7 @@ import com.agegame.utils.PixmapModifier;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -45,12 +46,13 @@ public class Base extends Actor {
 
     private Vector2 getCorrectPosition(Vector2 position){
         if(baseDirection == Direction.direction.RIGTH){
+            System.out.println("R: " + (position.x - baseSize.x));
             return new Vector2(position.x - baseSize.x, position.y);
         }
         else return position;
     }
 
-    public void draw(SpriteBatch batch) {
+    public void draw(Batch batch) {
         batch.draw(texture, position.x, position.y);
     }
 

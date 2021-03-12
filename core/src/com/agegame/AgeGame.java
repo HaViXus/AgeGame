@@ -31,7 +31,6 @@ public class AgeGame extends ApplicationAdapter implements ApplicationListener {
 	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
-		System.out.println("RESIZE: " + width + ", " + height);
 		game.resize(width, height);
 	}
 

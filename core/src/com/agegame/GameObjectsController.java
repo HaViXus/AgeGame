@@ -1,23 +1,24 @@
 package com.agegame;
 
-import com.agegame.Map.MapController;
-import com.agegame.Map.MapParameters;
+import com.agegame.map.MapController;
+import com.agegame.map.MapParameters;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class GameObjectsController {
 
     private MapController mapController;
 
-    public GameObjectsController(MapParameters mapParameters){
-        initController(mapParameters);
+    public GameObjectsController(MapParameters mapParameters, Stage gameStage){
+        initController(mapParameters, gameStage);
     }
 
-    public void initController(MapParameters mapParameters){
-        mapController = new MapController(mapParameters);
+    public void initController(MapParameters mapParameters, Stage gameStage){
+        mapController = new MapController(mapParameters, gameStage);
     }
 
-    public void draw(SpriteBatch batch){
-        mapController.draw(batch);
+    public void draw(){
+        mapController.draw();
     }
 
 

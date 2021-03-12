@@ -1,4 +1,4 @@
-package com.agegame.Map;
+package com.agegame.map;
 
 import com.agegame.Base.Base;
 import com.agegame.Direction;
@@ -7,13 +7,16 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Map {
     private Texture backgroundTexture;
     private MapParameters mapParameters;
     private Base[] bases;
-    public Map(MapParameters mapParameters){
+    private Stage gameStage;
+    public Map(MapParameters mapParameters, Stage gameStage){
         this.mapParameters = mapParameters;
+        this.gameStage = gameStage;
         createBackground();
         createBases();
     }
@@ -42,10 +45,10 @@ public class Map {
 
     }
 
-    public void draw(SpriteBatch batch){
-        batch.draw(backgroundTexture, 0, 0);
+    public void draw(){
+        gameStage.getBatch().draw(backgroundTexture, 0, 0);
         for(Base base: bases){
-            base.draw(batch);
+            base.draw(gameStage.getBatch());
         }
     }
 

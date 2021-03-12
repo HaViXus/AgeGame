@@ -1,6 +1,6 @@
 package com.agegame;
 
-import com.agegame.Map.MapParameters;
+import com.agegame.map.MapParameters;
 import com.agegame.input.CameraInputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

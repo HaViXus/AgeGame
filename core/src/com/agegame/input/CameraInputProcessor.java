@@ -47,7 +47,6 @@ public class CameraInputProcessor implements InputProcessor {
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
         int screenWidth = Gdx.graphics.getWidth();
-        System.out.println("CONTROLLER:" + screenX + " " + screenWidth + " " + ((float)screenX / screenWidth));
 
         if((float)screenX / screenWidth > 1 - screenPartToMove){
             cameraState = CameraStates.MOVE_RIGHT;
@@ -56,7 +55,7 @@ public class CameraInputProcessor implements InputProcessor {
             cameraState = CameraStates.MOVE_LEFT;
         }
         else cameraState = CameraStates.STAY;
-        System.out.println("MOUSE Moved: " + screenX + " " + screenY);
+
         return false;
     }
 
