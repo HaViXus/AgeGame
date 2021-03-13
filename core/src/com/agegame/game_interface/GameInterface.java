@@ -9,20 +9,28 @@ public class GameInterface {
     private InterfacePanel panel;
     private Stage UIStage;
 
-    public GameInterface(){
-        UIStage = new Stage(new FitViewport(320, 180));
-        Vector2 screenSize = new Vector2(UIStage.getWidth(), UIStage.getHeight());
-        panel = new InterfacePanel(screenSize);
-        UIStage.addActor(panel);
+    public GameInterface() {}
+
+    public GameInterface(PanelRenderDataPacket constructionPanelData){
+        init(constructionPanelData);
     }
 
-    public void update(float delta){
+    public void init(PanelRenderDataPacket constructionPanelData){
+        UIStage = new Stage(new FitViewport(320, 180));
+        Vector2 screenSize = new Vector2(UIStage.getWidth(), UIStage.getHeight());
+        panel = new InterfacePanel(screenSize, constructionPanelData, UIStage);
+    }
+
+    public void update(float delta, PanelRenderDataPacket constructionPanelData){
+        panel.update(constructionPanelData);
         UIStage.act(delta);
     }
 
-    public void draw(SpriteBatch batch){
-        UIStage.draw();
+    public void panelChange(PanelRenderDataPacket constructionPanelData){
+        panel.changeConstructionPanelButtons(constructionPanelData, UIStage);
     }
+
+    public void draw(SpriteBatch batch){ UIStage.draw(); }
 
     public Stage getStage(){
         return UIStage;
