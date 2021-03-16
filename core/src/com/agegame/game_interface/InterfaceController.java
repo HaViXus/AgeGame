@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class InterfaceController {
 
     private GameInterface gameInterface;
-    private ArrayList<InterfaceState> state;
+    public static ArrayList<InterfaceState> state;
     private InterfaceState lastState;
     private PanelRenderDataPacket constructionPanelRenderData;
     public InterfaceController(){
@@ -52,7 +52,7 @@ public class InterfaceController {
 
             default:
                 System.out.println("Nie prawidłowy state intefejsu!");
-                return null;
+                return getConstructionPanelMainViewDataPacket();
         }
     }
 
