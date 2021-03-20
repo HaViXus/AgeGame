@@ -1,0 +1,115 @@
+{
+  "gameEras": [
+	"STONE_AGE", "MEDIEVAL"
+  ],
+  "landUnits": {
+
+	"STONE_AGE": [
+		{
+			"refreshTime": 3.0,
+			"name": "ConstructionSL1",
+			"price": 300
+		},
+		{
+			"refreshTime": 2.0,
+			"name": "ConstructionSL2",
+			"price": 200
+		},
+		{
+			"refreshTime": 8.0,
+			"name": "ConstructionSL3",
+			"price": 600
+		}
+	],
+	"MEDIEVAL":[
+		{
+			"refreshTime": 4.0,
+			"name": "ConstructionML1",
+			"price": 700
+		},
+		{
+			"refreshTime": 5.0,
+			"name": "ConstructionML2",
+			"price": 800
+		},
+		{
+			"refreshTime": 6.0,
+			"name": "ConstructionML3",
+			"price": 900
+		}
+	]
+
+  },
+  "airUnits": {
+	"STONE_AGE": [
+		{
+			"refreshTime": 12.0,
+			"name": "ConstructionSA1",
+			"price": 700
+		},
+		{
+			"refreshTime": 16.0,
+			"name": "ConstructionSA2",
+			"price": 850
+		}
+	],
+	"MEDIEVAL":[
+		{
+			"refreshTime": 14.0,
+			"name": "ConstructionMA1",
+			"price": 1400
+		},
+		{
+			"refreshTime": 15.0,
+			"name": "ConstructionMA2",
+			"price": 1500
+		},
+		{
+			"refreshTime": 16.0,
+			"name": "ConstructionMA3",
+			"price": 1900
+		}
+	]
+  },
+  "waterUnits": {
+	"STONE_AGE": [
+		{
+			"refreshTime": 3.0,
+			"name": "ConstructionSW1",
+			"price": 500
+		}
+	],
+	"MEDIEVAL":[
+		{
+			"refreshTime": 14.0,
+			"name": "ConstructionMW1",
+			"price": 700
+		},
+		{
+			"refreshTime": 14.0,
+			"name": "ConstructionMW2",
+			"price": 900
+		}
+	]
+  },
+  "turrets": {
+	"STONE_AGE": [
+		{
+			"name": "TurretS1",
+			"price": 500
+		}
+	],
+	"MEDIEVAL":[
+		{
+			"name": "TurretM1",
+			"price": 1700
+		},
+		{
+			"name": "TurretM2",
+			"price": 1900
+		}
+	]
+  }
+
+ 
+}

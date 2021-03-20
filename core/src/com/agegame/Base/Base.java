@@ -46,7 +46,6 @@ public class Base extends Actor {
 
     private Vector2 getCorrectPosition(Vector2 position){
         if(baseDirection == Direction.direction.RIGTH){
-            System.out.println("R: " + (position.x - baseSize.x));
             return new Vector2(position.x - baseSize.x, position.y);
         }
         else return position;

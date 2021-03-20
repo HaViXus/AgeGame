@@ -1,5 +1,6 @@
 package com.agegame.player;
 
+import com.agegame.GameController;
 import com.agegame.game_data.ConstructionData;
 import com.agegame.request.ConstructionRequest;
 import com.agegame.request.ConstructionRequestData;
@@ -17,9 +18,7 @@ public class ActionController {
     private ArrayList<ConstructionData> mockedConstructions;
 
     public ActionController( RequestQueue requestQueue){
-        mockedConstructions = new ArrayList<>();
-        mockedConstructions.add(new ConstructionData(GameEra.STONE_AGE, 3.0f, "Example 1",200));
-        mockedConstructions.add(new ConstructionData(GameEra.STONE_AGE, 5.0f, "Example 2", 700));
+        mockedConstructions = GameController.gameData.getLandUnits().get("STONE_AGE");
 
         this.requestQueue = requestQueue;
 
@@ -49,7 +48,7 @@ public class ActionController {
             if(construction.price > playerStats.gold) possible = false;
 
             if(possible){
-                Action constructionAction = new Action(Action.ActionType.START, construction.construction);
+                Action constructionAction = new Action(Action.ActionType.START, Action.DomainType.TOWER, construction.construction);
                 possibleConstructionActions.add(constructionAction);
             }
         }

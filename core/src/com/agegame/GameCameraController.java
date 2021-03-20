@@ -40,7 +40,6 @@ public class GameCameraController {
         else if(cameraInput.cameraState == CameraInputProcessor.CameraStates.MOVE_RIGHT){
             camera.position.x += cameraSpeed * delta;
             correctCameraPosition();
-            System.out.println("CAMERA_MOVE_RIGHT: " + camera.position.x);
         }
     }
 

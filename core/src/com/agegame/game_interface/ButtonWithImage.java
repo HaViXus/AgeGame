@@ -6,15 +6,13 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.*;
 
-import java.lang.reflect.Method;
-
 public class ButtonWithImage extends Actor {
     public Pixmap imagePixmap;
     public Texture imageTexture;
     public Vector2 position;
-    private Runnable onClick;
     private enum ButtonState { DISABLED, JUST_PRESSED, PRESSED, HOVERED, IDLE};
     private ButtonState state;
+    private Runnable onClick;
 
     public ButtonWithImage(){
         super();
@@ -41,7 +39,6 @@ public class ButtonWithImage extends Actor {
         EventListener listener = initListener(onClick);
         for(EventListener listenerToRemove: getListeners())
             removeListener(listenerToRemove);
-        System.out.println("XXX");
         this.addListener(listener);
     }
 

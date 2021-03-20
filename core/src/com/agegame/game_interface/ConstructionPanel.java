@@ -54,7 +54,6 @@ public class ConstructionPanel {
                     @Override
                     public void run() {
                         InterfaceController.state.add(stateToMove);
-                        System.out.println("TEST: " + stateToMove);
                     }
                 };
                 constructionButton = new ConstructionButton(buttonData.image, buttonPosition, buttonOnClickMethod);

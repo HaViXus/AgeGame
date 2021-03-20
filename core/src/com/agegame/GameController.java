@@ -1,6 +1,6 @@
 package com.agegame;
 
-import com.agegame.game_interface.GameInterface;
+import com.agegame.game_data.GameData;
 import com.agegame.game_interface.InterfaceController;
 import com.agegame.map.MapParameters;
 import com.agegame.player.HumanPlayer;
@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameController {
+    public static GameData gameData;
 
     private GameObjectsController gameObjectsController;
     private InputMultiplexer inputMultiplexer;
@@ -28,6 +29,7 @@ public class GameController {
     }
 
     private void initGameController(MapParameters mapParameters){
+        initGameData();
         initInputMultiplexer();
         initGameCameraController(mapParameters);
         initInterfaceController();
@@ -47,6 +49,10 @@ public class GameController {
         gameCameraController = new GameCameraController(cameraInputProcessor, mapParameters);
 
 
+    }
+
+    private void initGameData(){
+        gameData = new GameData();
     }
 
     private void initPlayers(){

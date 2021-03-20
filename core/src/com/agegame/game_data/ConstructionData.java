@@ -5,14 +5,17 @@ import com.agegame.utils.GameEra;
 public class ConstructionData {
     public float constructionTime;
     public String construction;
-    public GameEra gameEra;
     public int price;
 
     public ConstructionData() {};
 
-    public ConstructionData(GameEra gameEra, float constructionTime, String construction, int price) {
-        this.gameEra = gameEra;
+    public ConstructionData(float constructionTime, String construction, int price) {
         this.constructionTime = constructionTime;
+        this.construction = construction;
+        this.price = price;
+    }
+
+    public ConstructionData(String construction, int price) {
         this.construction = construction;
         this.price = price;
     }
