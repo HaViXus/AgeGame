@@ -1,6 +1,6 @@
 package com.agegame.request;
 
-import com.agegame.utils.GameEra;
+import com.agegame.player.Action;
 
 public class ConstructionRequest implements Request{
 
@@ -8,11 +8,11 @@ public class ConstructionRequest implements Request{
 
     public ConstructionRequest(){}
 
-    public ConstructionRequest(GameEra gameEra, long startTime, String construction) {
-        initRequest(gameEra, startTime, construction);
+    public ConstructionRequest(String gameEra, long startTime, String construction, Action.DomainType domain) {
+        initRequest(gameEra, startTime, construction, domain);
     }
-    public void initRequest(GameEra gameEra, long startTime, String construction){
-        requestData = new ConstructionRequestData(gameEra, startTime, construction);
+    public void initRequest(String gameEra, long startTime, String construction, Action.DomainType domain){
+        requestData = new ConstructionRequestData(gameEra, startTime, construction, domain);
     }
 
     @Override

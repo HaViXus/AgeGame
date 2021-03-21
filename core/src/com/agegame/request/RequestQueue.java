@@ -14,7 +14,11 @@ public class RequestQueue {
     }
 
     public void deleteRequest(Request requestToDelete){
-        //TODO
+        requestArray.remove(requestToDelete);
+    }
+
+    public void clear(){
+        requestArray.clear();
     }
 
     public ArrayList<ConstructionRequest> getConstructionRequests(){

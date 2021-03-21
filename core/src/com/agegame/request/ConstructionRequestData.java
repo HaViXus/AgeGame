@@ -1,18 +1,20 @@
 package com.agegame.request;
 
-import com.agegame.utils.GameEra;
+import com.agegame.player.Action;
 
 public class ConstructionRequestData {
     public long startTime;
-    public String construction;
-    public GameEra era;
+    public String requestName;
+    public String era;
+    public Action.DomainType domain;
 
     public ConstructionRequestData(){}
 
-    public ConstructionRequestData(GameEra era, long startTime, String construction){
+    public ConstructionRequestData(String era, long startTime, String requestName, Action.DomainType domain){
         this.era = era;
         this.startTime = startTime;
-        this.construction = construction;
+        this.requestName = requestName;
+        this.domain = domain;
     }
 
 }

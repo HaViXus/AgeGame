@@ -1,5 +1,6 @@
 package com.agegame.game_data;
 
+import com.agegame.player.Action;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
@@ -8,10 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameData {
-    private HashMap<String, ArrayList<ConstructionData>> landUnits;
-    private HashMap<String, ArrayList<ConstructionData>> airUnits;
-    private HashMap<String, ArrayList<ConstructionData>> waterUnits;
-    private HashMap<String, ArrayList<ConstructionData>> turrets;
+    public static HashMap<String, ArrayList<ConstructionData>> landUnits;
+    public static HashMap<String, ArrayList<ConstructionData>> airUnits;
+    public static HashMap<String, ArrayList<ConstructionData>> waterUnits;
+    public static HashMap<String, ArrayList<ConstructionData>> turrets;
     public static ArrayList<String> gameEras = new ArrayList();
 
     private JsonValue constructionDataJSON;
@@ -21,6 +22,21 @@ public class GameData {
         initGameEras();
         initUnits();
         initTurrets();
+    }
+
+    public HashMap<String, ArrayList<ConstructionData>> getDataFromDomain(Action.DomainType domain){
+        switch (domain){
+            case LAND_UNIT:
+                return landUnits;
+            case AIR_UNIT:
+                return  airUnits;
+            case WATER_UNIT:
+                return waterUnits;
+            case TOWER:
+                return turrets;
+            default:
+                return null;
+        }
     }
 
     private void initJSONData(){
@@ -98,12 +114,4 @@ public class GameData {
         ConstructionData turretData = new ConstructionData(name, price);
         turretsFromEra.add(turretData);
     }
-
-    public HashMap<String, ArrayList<ConstructionData>> getTurrets() { return turrets; }
-
-    public HashMap<String, ArrayList<ConstructionData>> getLandUnits() { return landUnits; }
-
-    public HashMap<String, ArrayList<ConstructionData>> getAirUnits() { return airUnits; }
-
-    public HashMap<String, ArrayList<ConstructionData>> getWaterUnits() { return waterUnits; }
 }
