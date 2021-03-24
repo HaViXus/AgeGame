@@ -24,15 +24,15 @@ public class Map {
     private void createBackground(){
         int mapWidth = mapParameters.width;
         Pixmap backgroundPixmap;
-        backgroundPixmap = new Pixmap(mapWidth, 180, Pixmap.Format.RGBA8888);
+        backgroundPixmap = new Pixmap(mapWidth, 480, Pixmap.Format.RGBA8888);
         backgroundPixmap.setColor(Color.CYAN);
         backgroundPixmap.fill();
         backgroundPixmap.setColor(Color.BROWN);
-        backgroundPixmap.fillRectangle(0,50, mapWidth,65);
+        backgroundPixmap.fillRectangle(0,80, mapWidth,190);
         backgroundPixmap.setColor(Color.BLUE);
-        backgroundPixmap.fillRectangle(0,115, mapWidth,50);
+        backgroundPixmap.fillRectangle(0,270, mapWidth,190);
         backgroundPixmap.setColor(Color.LIGHT_GRAY);
-        backgroundPixmap.fillRectangle(0,150, mapWidth,30);
+        backgroundPixmap.fillRectangle(0,430, mapWidth,160);
 
         backgroundTexture = new Texture( backgroundPixmap );
         backgroundPixmap.dispose();
@@ -40,8 +40,8 @@ public class Map {
 
     private void createBases(){
         bases = new Base[2];
-        bases[0] = new Base(Direction.direction.LEFT, new Vector2(0,70));
-        bases[1] = new Base(Direction.direction.RIGTH, new Vector2(mapParameters.width, 70));
+        bases[0] = new Base(Direction.direction.LEFT, new Vector2(0,200));
+        bases[1] = new Base(Direction.direction.RIGTH, new Vector2(mapParameters.width, 200));
 
     }
 

@@ -30,13 +30,12 @@ public class GameController {
 
     private void initGameController(MapParameters mapParameters){
         initGameData();
+        initPlayers();
         initInputMultiplexer();
         initGameCameraController(mapParameters);
         initInterfaceController();
         initGameStage();
         initGameObjectController(mapParameters);
-
-        initPlayers();
     }
 
     private void initGameObjectController(MapParameters mapParameters){
@@ -68,19 +67,19 @@ public class GameController {
     }
 
     private void initGameStage(){
-        Viewport viewport = new FitViewport(320, 180, gameCameraController.getCamera());
+        Viewport viewport = new FitViewport(854, 480, gameCameraController.getCamera());
         gameStage = new Stage(viewport);
         inputMultiplexer.addProcessor(gameStage);
     }
 
     private void initInterfaceController(){
-        interfaceController = new InterfaceController();
+        interfaceController = new InterfaceController(players[0].getStats());
         inputMultiplexer.addProcessor(interfaceController.getGameInterface().getStage());
     }
 
     public void update(SpriteBatch batch, float delta){
         gameCameraController.updateCamera(batch, delta);
-        interfaceController.update(delta, players[0]);
+        interfaceController.update(delta);
         players[0].update();
         gameStage.act(delta);
     }

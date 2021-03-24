@@ -11,14 +11,14 @@ public class GameInterface {
 
     public GameInterface() {}
 
-    public GameInterface(PanelRenderDataPacket constructionPanelData){
-        init(constructionPanelData);
+    public GameInterface(PanelRenderDataPacket constructionPanelData, PanelRenderDataPacket attachmentsPanelData){
+        init(constructionPanelData, attachmentsPanelData);
     }
 
-    public void init(PanelRenderDataPacket constructionPanelData){
+    public void init(PanelRenderDataPacket constructionPanelData, PanelRenderDataPacket attachmentsPanelData){
         UIStage = new Stage(new FitViewport(320, 180));
         Vector2 screenSize = new Vector2(UIStage.getWidth(), UIStage.getHeight());
-        panel = new InterfacePanel(screenSize, constructionPanelData, UIStage);
+        panel = new InterfacePanel(screenSize, constructionPanelData, attachmentsPanelData, UIStage);
     }
 
     public void update(float delta, PanelRenderDataPacket constructionPanelData){

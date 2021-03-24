@@ -17,7 +17,7 @@ public class Base extends Actor {
     private Texture texture;
     private Direction.direction baseDirection;
     private Vector2 position;
-    private Vector2 baseSize = new Vector2(90, 90);
+    private Vector2 baseSize = new Vector2(190, 190);
 
     public Base(Direction.direction baseDirection, Vector2 position){
         this.baseDirection = baseDirection;

@@ -1,19 +1,17 @@
 package com.agegame.game_interface;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.agegame.player.Action;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.function.Function;
 
-public class ConstructionPanel {
+public class ActionPanel {
 
-    ArrayList<ConstructionButton> buttons;
+    ArrayList<PanelButton> buttons;
     Vector2 position;
 
-    public ConstructionPanel(PanelRenderDataPacket panelRenderDataPacket, Vector2 position, Stage UIStage){
+    public ActionPanel(PanelRenderDataPacket panelRenderDataPacket, Vector2 position, Stage UIStage){
         this.position = position;
         buttons = new ArrayList<>();
         changeButtons(panelRenderDataPacket, UIStage);
@@ -32,39 +30,39 @@ public class ConstructionPanel {
     }
 
     private void deleteOldButtonsFromStage(){
-        for(ConstructionButton button: buttons){
+        for(PanelButton button: buttons){
             button.remove();
         }
     }
 
-    private void buttonOnClick(InterfaceState state){
-        InterfaceController.state.add(state);
+    private void buttonOnClick(Action.DomainType state){
+        InterfaceController.state = state;
     }
 
     private void createButton(PanelRenderData buttonData, Vector2 buttonPosition, Stage UIStage){
-        ConstructionButton constructionButton = null;
+        PanelButton panelButton = null;
         if(buttonData.moveTo == null)
-            constructionButton = new ConstructionButton(buttonData.image, buttonPosition);
+            panelButton = new PanelButton(buttonData.image, buttonPosition);
         else {
             Class[] buttonClickTypes = new Class[1];
-            buttonClickTypes[0] = InterfaceState.class;
-            final InterfaceState stateToMove = buttonData.moveTo;
+            buttonClickTypes[0] = Action.DomainType.class;
+            final Action.DomainType stateToMove = buttonData.moveTo;
             try {
                 Runnable buttonOnClickMethod = new Runnable() {
                     @Override
                     public void run() {
-                        InterfaceController.state.add(stateToMove);
+                        InterfaceController.state = stateToMove;
                     }
                 };
-                constructionButton = new ConstructionButton(buttonData.image, buttonPosition, buttonOnClickMethod);
+                panelButton = new PanelButton(buttonData.image, buttonPosition, buttonOnClickMethod);
             }catch (Exception exception){
                 System.out.println("Button creation error!");
             }
 
         }
-        if(constructionButton != null){
-            buttons.add(constructionButton);
-            UIStage.addActor(constructionButton);
+        if(panelButton != null){
+            buttons.add(panelButton);
+            UIStage.addActor(panelButton);
         }
 
     }

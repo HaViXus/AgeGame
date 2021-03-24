@@ -24,7 +24,7 @@ public class GameData {
         initTurrets();
     }
 
-    public HashMap<String, ArrayList<ConstructionData>> getDataFromDomain(Action.DomainType domain){
+    public static HashMap<String, ArrayList<ConstructionData>> getDataFromDomain(Action.DomainType domain){
         switch (domain){
             case LAND_UNIT:
                 return landUnits;

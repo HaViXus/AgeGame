@@ -6,17 +6,17 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.lang.reflect.Method;
 
-public class ConstructionButton extends ButtonWithImage{
+public class PanelButton extends ButtonWithImage{
 
-    public ConstructionButton(){
+    public PanelButton(){
         super();
     }
 
-    public ConstructionButton(Pixmap image, Vector2 position) {
+    public PanelButton(Pixmap image, Vector2 position) {
         super(image, position);
     }
 
-    public ConstructionButton(Pixmap image, Vector2 position, Runnable onClick) {
+    public PanelButton(Pixmap image, Vector2 position, Runnable onClick) {
         super(image, position, onClick);
     }
 

@@ -74,7 +74,6 @@ public class ActionController {
 
 
             action.state = actionState;
-            System.out.println(action.toString());
         }
 
 

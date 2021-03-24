@@ -10,16 +10,21 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class InterfacePanel extends Actor {
     private Texture backgroundTexture;
-    private ConstructionPanel constructionPanel;
+    private ActionPanel actionPanel;
+    private AttachmentsPanel attachmentsPanel;
 
-    public InterfacePanel(Vector2 screenSize, PanelRenderDataPacket constructionPanelData, Stage UIStage){
+    public InterfacePanel(Vector2 screenSize,
+                          PanelRenderDataPacket constructionPanelData,
+                          PanelRenderDataPacket attachmentsPanelData,
+                          Stage UIStage){
         UIStage.addActor(this);
         cretePanelBackground(screenSize);
         initConstructionPanel(constructionPanelData, UIStage);
+        initAttachmentsPanel(attachmentsPanelData, UIStage);
     }
 
     private void cretePanelBackground(Vector2 screenSize){
-        Pixmap panelBackground = new Pixmap((int)screenSize.x, 30, Pixmap.Format.RGBA8888);
+        Pixmap panelBackground = new Pixmap((int)screenSize.x, 32, Pixmap.Format.RGBA8888);
         panelBackground.setColor(Color.ORANGE);
         panelBackground.fill();
 
@@ -29,15 +34,19 @@ public class InterfacePanel extends Actor {
     }
 
     private void initConstructionPanel(PanelRenderDataPacket constructionPanelData, Stage UIStage){
-        constructionPanel = new ConstructionPanel(constructionPanelData, new Vector2(100,5), UIStage);
+        actionPanel = new ActionPanel(constructionPanelData, new Vector2(70,2), UIStage);
+    }
+
+    private void initAttachmentsPanel(PanelRenderDataPacket attachmentsPanelData, Stage UIStage){
+        attachmentsPanel= new AttachmentsPanel(attachmentsPanelData, new Vector2(4,2), UIStage);
     }
 
     public void update(PanelRenderDataPacket constructionPanelData){
-        constructionPanel.update(constructionPanelData);
+        actionPanel.update(constructionPanelData);
     }
 
     public void changeConstructionPanelButtons(PanelRenderDataPacket constructionPanelData, Stage UIStage){
-        constructionPanel.changeButtons(constructionPanelData, UIStage);
+        actionPanel.changeButtons(constructionPanelData, UIStage);
     }
 
     @Override

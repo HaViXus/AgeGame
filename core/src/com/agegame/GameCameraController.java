@@ -4,19 +4,20 @@ import com.agegame.map.MapParameters;
 import com.agegame.input.CameraInputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 
 public class GameCameraController {
     private CameraInputProcessor cameraInput;
     private  OrthographicCamera camera;
 
-    private final float cameraSpeed = 280.0f;
+    private final float cameraSpeed = 750.0f;
     private MapParameters mapParameters;
 
     public GameCameraController(CameraInputProcessor cameraInput, MapParameters mapParameters){
         this.cameraInput = cameraInput;
         this.mapParameters = mapParameters;
 
-        camera = new OrthographicCamera(320,180);
+        camera = new OrthographicCamera(854,480);
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
     }
@@ -38,7 +39,9 @@ public class GameCameraController {
             correctCameraPosition();
         }
         else if(cameraInput.cameraState == CameraInputProcessor.CameraStates.MOVE_RIGHT){
-            camera.position.x += cameraSpeed * delta;
+            Vector3 cameraPosition = camera.position;
+            cameraPosition.x +=  cameraSpeed * delta;
+            camera.position.lerp(cameraPosition, cameraSpeed);
             correctCameraPosition();
         }
     }
