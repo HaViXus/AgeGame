@@ -27,7 +27,7 @@ public class Game{
 
         gameController.update(batch, delta);
         gameController.draw(batch);
-        System.out.println("FPS: " + (1/Gdx.graphics.getDeltaTime()));
+        //System.out.println("FPS: " + (1/Gdx.graphics.getDeltaTime()));
     }
 
     public void resize(int width, int height) {

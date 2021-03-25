@@ -46,12 +46,14 @@ public class ActionController {
     private void updateLandUnitsActions(RequestQueue requestQueue){
         updatePossibleUnitsActions(requestQueue,
                 GameData.landUnits.get(playerStats.era),
-                playerStats.landUnitsState);
+                playerStats.landUnitsState,
+                Action.DomainType.LAND_UNIT);
     }
 
     private void updatePossibleUnitsActions(RequestQueue requestQueue,
                                             ArrayList<ConstructionData> unitsData,
-                                            ArrayList<Action> actionList) {
+                                            ArrayList<Action> actionList,
+                                            Action.DomainType domain) {
         ArrayList<ConstructionRequest> actualConstructionRequests = requestQueue.getConstructionRequests();
 
         for(Action action : actionList){
@@ -62,14 +64,27 @@ public class ActionController {
                 if(requestData.requestName == action.actionName){
                     actionState = Action.ActionState.WAITING;
                     action.useTime = requestData.startTime;
+                    //System.out.println("REQUEST: " + requestData.requestName + " " + requestData.startTime);
+                    requestQueue.deleteRequest(constructionRequest);
                 }
             }
 
-            for(ConstructionData construction : unitsData){
-                if(construction.name == action.actionName){
-                    if(construction.price > playerStats.gold) actionState = Action.ActionState.DISABLED;
-                    break;
+            if(isActionInProgress(action, domain)){
+                actionState = Action.ActionState.WAITING;
+            }
+
+            if(actionState!= Action.ActionState.WAITING){
+                for(ConstructionData construction : unitsData){
+                    if(construction.name == action.actionName){
+                        if(construction.price > playerStats.gold) actionState = Action.ActionState.DISABLED;
+                        break;
+                    }
                 }
+            }
+
+
+            if(actionState != Action.ActionState.READY){
+
             }
 
 
@@ -77,5 +92,19 @@ public class ActionController {
         }
 
 
+    }
+
+    private boolean isActionInProgress(Action action, Action.DomainType domain){
+        for(ConstructionData construction: GameData.getDataFromDomain(domain).get(playerStats.era)){
+            if(action.actionName == construction.name){
+                float progress = (System.currentTimeMillis() - action.useTime) / ( construction.constructionTime * 1000 );
+                if(progress > 0 && progress < 1){
+                    //System.out.println("ACTION: " + action.actionName + " " + action.state + " " + (System.currentTimeMillis() - action.useTime) / ( construction.constructionTime * 1000 ));
+                    return true;
+                }
+                else return false;
+            }
+        }
+        return false;
     }
 }

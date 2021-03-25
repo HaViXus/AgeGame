@@ -73,7 +73,7 @@ public class GameController {
     }
 
     private void initInterfaceController(){
-        interfaceController = new InterfaceController(players[0].getStats());
+        interfaceController = new InterfaceController(players[0]);
         inputMultiplexer.addProcessor(interfaceController.getGameInterface().getStage());
     }
 

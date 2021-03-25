@@ -19,5 +19,20 @@ public class PlayerStats {
         turretsState = new ArrayList<>();
     }
 
+    public ArrayList<Action> getActionByDomain(Action.DomainType domain){
+        switch(domain){
+            case LAND_UNIT:
+                return landUnitsState;
+            case AIR_UNIT:
+                return airUnitsState;
+            case WATER_UNIT:
+                return waterUnitsState;
+            case TOWER:
+                return turretsState;
+            default:
+                return null;
+        }
+    }
+
 
 }

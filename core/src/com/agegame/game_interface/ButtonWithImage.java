@@ -10,8 +10,10 @@ public class ButtonWithImage extends Actor {
     public Pixmap imagePixmap;
     public Texture imageTexture;
     public Vector2 position;
-    private enum ButtonState { DISABLED, JUST_PRESSED, PRESSED, HOVERED, IDLE};
-    private ButtonState state;
+    public boolean disabled;
+    protected boolean wasDisabled;
+    protected enum ButtonState { JUST_PRESSED, PRESSED, HOVERED, IDLE};
+    protected ButtonState state;
     private Runnable onClick;
 
     public ButtonWithImage(){
@@ -22,9 +24,12 @@ public class ButtonWithImage extends Actor {
     public ButtonWithImage(Pixmap image, Vector2 position){
         this();
         this.onClick = null;
-        this.imagePixmap = image;
+        this.imagePixmap = new Pixmap(image.getWidth(), image.getHeight(), Pixmap.Format.RGBA8888);
+        this.imagePixmap.drawPixmap(image,0,0);
         this.position = position;
         imageTexture = new Texture(this.imagePixmap);
+        disabled = false;
+        wasDisabled = disabled;
         setBounds(position.x, position.y, image.getWidth(), image.getHeight());
 
     }
@@ -46,7 +51,8 @@ public class ButtonWithImage extends Actor {
         return new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(state != ButtonState.DISABLED){
+                System.out.println("TU");
+                if(!disabled){
                     if(state != ButtonState.PRESSED){
                         state = ButtonState.JUST_PRESSED;
                         if(onClick != null) onClick.run();
@@ -58,12 +64,12 @@ public class ButtonWithImage extends Actor {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if(state != ButtonState.DISABLED) state = ButtonState.IDLE;
+                if(!disabled) state = ButtonState.IDLE;
             }
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                if(state != ButtonState.DISABLED) state = ButtonState.HOVERED;
+                if(!disabled) state = ButtonState.HOVERED;
             }
         };
     }
