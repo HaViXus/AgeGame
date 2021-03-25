@@ -82,12 +82,6 @@ public class ActionController {
                 }
             }
 
-
-            if(actionState != Action.ActionState.READY){
-
-            }
-
-
             action.state = actionState;
         }
 

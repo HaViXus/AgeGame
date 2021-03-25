@@ -91,6 +91,7 @@ public class InterfaceController {
             Action actionConnectedWithButton = null;
             for(Action action: actionsFromDomain){
                 if(action.actionName == constructionData.name){
+                    System.out.println(constructionData.name);
                     actionConnectedWithButton = action;
                     break;
                 }
@@ -106,14 +107,16 @@ public class InterfaceController {
                 System.out.println("Clicked: " + constructionData.name + " " + progress);
             };
 
+            if(actionConnectedWithButton != null){
+                PanelRenderData buttonData = new PanelRenderData();
+                buttonData.image = buttonImage;
+                buttonData.onClick = onClick;
+                buttonData.disabled = ( actionConnectedWithButton.state == Action.ActionState.DISABLED || actionConnectedWithButton.state == Action.ActionState.WAITING);
+                buttonData.progress = (System.currentTimeMillis() - finalActionConnectedWithButton.useTime) / ( constructionData.constructionTime * 1000 );
+                buttonData.relatedActionName = actionConnectedWithButton.actionName;
+                packet.add(buttonData);
+            }
 
-            PanelRenderData buttonData = new PanelRenderData();
-            buttonData.image = buttonImage;
-            buttonData.onClick = onClick;
-            buttonData.disabled = ( actionConnectedWithButton.state == Action.ActionState.DISABLED || actionConnectedWithButton.state == Action.ActionState.WAITING);
-            buttonData.progress = (System.currentTimeMillis() - finalActionConnectedWithButton.useTime) / ( constructionData.constructionTime * 1000 );
-            buttonData.relatedActionName = actionConnectedWithButton.actionName;
-            packet.add(buttonData);
 
         }
 
