@@ -20,4 +20,6 @@ public class MapController {
         map.draw();
     }
 
+    public Map getMap(){ return map; }
+
 }

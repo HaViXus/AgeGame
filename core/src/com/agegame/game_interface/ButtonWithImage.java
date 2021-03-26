@@ -51,7 +51,6 @@ public class ButtonWithImage extends Actor {
         return new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("TU");
                 if(!disabled){
                     if(state != ButtonState.PRESSED){
                         state = ButtonState.JUST_PRESSED;

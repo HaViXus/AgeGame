@@ -39,7 +39,7 @@ public class GameController {
     }
 
     private void initGameObjectController(MapParameters mapParameters){
-        gameObjectsController = new GameObjectsController(mapParameters, gameStage);
+        gameObjectsController = new GameObjectsController(mapParameters, gameStage, players);
     }
 
     private void initGameCameraController(MapParameters mapParameters){
@@ -82,6 +82,9 @@ public class GameController {
         interfaceController.update(delta);
         players[0].update();
         gameStage.act(delta);
+        gameObjectsController.update(delta);
+        players[0].updateRequestQueue();
+
     }
 
     public void draw(SpriteBatch batch){

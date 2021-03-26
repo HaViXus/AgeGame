@@ -33,6 +33,11 @@ public class HumanPlayer implements Player{
     }
 
     @Override
+    public void updateRequestQueue() {
+        requestQueue.clear();
+    }
+
+    @Override
     public PlayerStats getStats() {
         return stats;
     }

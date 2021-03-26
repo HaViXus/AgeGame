@@ -64,8 +64,6 @@ public class ActionController {
                 if(requestData.requestName == action.actionName){
                     actionState = Action.ActionState.WAITING;
                     action.useTime = requestData.startTime;
-                    //System.out.println("REQUEST: " + requestData.requestName + " " + requestData.startTime);
-                    requestQueue.deleteRequest(constructionRequest);
                 }
             }
 

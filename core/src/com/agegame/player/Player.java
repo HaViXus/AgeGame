@@ -8,6 +8,8 @@ public interface Player {
 
     void update();
 
+    void updateRequestQueue();
+
     PlayerStats getStats();
 
     RequestQueue getRequestQueue();

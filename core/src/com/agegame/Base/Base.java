@@ -6,11 +6,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-
-import java.util.Vector;
 
 public class Base extends Actor {
     private int HP;
@@ -22,6 +19,7 @@ public class Base extends Actor {
     public Base(Direction.direction baseDirection, Vector2 position){
         this.baseDirection = baseDirection;
         this.position = getCorrectPosition(position);
+        setBounds(position.x, position.y, baseSize.x, baseSize.y);
 
         createBase();
     }
@@ -36,7 +34,7 @@ public class Base extends Actor {
         backgroundPixmap.fillRectangle((int) baseSize.x/2,0, (int) baseSize.x/2,(int) baseSize.y);
 
 
-        if(baseDirection == Direction.direction.RIGTH){
+        if(baseDirection == Direction.direction.RIGHT){
             backgroundPixmap = PixmapModifier.flipHorizontally(backgroundPixmap);
         }
 
@@ -45,7 +43,7 @@ public class Base extends Actor {
     }
 
     private Vector2 getCorrectPosition(Vector2 position){
-        if(baseDirection == Direction.direction.RIGTH){
+        if(baseDirection == Direction.direction.RIGHT){
             return new Vector2(position.x - baseSize.x, position.y);
         }
         else return position;
@@ -55,7 +53,11 @@ public class Base extends Actor {
         batch.draw(texture, position.x, position.y);
     }
 
+    public float getSpawnXPosition(){
+        return position.x + getWidth()/2 - baseDirection.getIntValue() * getWidth()/2;
+    }
 
+    public Direction.direction getDirection() { return baseDirection; }
 
 
 }
