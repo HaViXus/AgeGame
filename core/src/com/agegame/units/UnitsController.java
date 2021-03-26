@@ -18,6 +18,29 @@ public class UnitsController {
     private Player[] players;
     private Stage gameStage;
 
+    public enum UnitType{
+        LAND_UNIT(Action.DomainType.LAND_UNIT),
+        AIR_UNIT(Action.DomainType.AIR_UNIT),
+        WATER_UNIT(Action.DomainType.WATER_UNIT);
+
+        private Action.DomainType domain;
+
+        UnitType(Action.DomainType domain){
+            this.domain = domain;
+        }
+
+        public Action.DomainType getDomain(){
+            return domain;
+        }
+    }
+
+    public UnitType domainToUnitType(Action.DomainType domain){
+        for(UnitType unitType : UnitType.values()){
+            if(unitType.domain == domain) return unitType;
+        }
+        return null;
+    }
+
 
     public UnitsController(Map map, Player[] players, Stage gameStage) {
         this.map = map;
@@ -55,25 +78,14 @@ public class UnitsController {
 
     private void createUnit(Action.DomainType domain, Player player, String unitName){
         try{
-            String classPath = "com.agegame.units.land_units." + unitName;
-            Class myClass = Class.forName(classPath);
-
-            Class[] types = {};
-            Constructor constructor = myClass.getConstructor(types);
-
-            Object[] parameters = {};
-            Unit unit = (Unit) constructor.newInstance(parameters);
-
-            Base spawnBase = map.getBase(player.getDirection());
+            Unit unit = createUnitClassInstantion(domain, unitName);
             MapLine line = map.getLines().get(domain);
-            Vector2 startPosition = new Vector2( spawnBase.getSpawnXPosition(), line.getPositionY() );
+            Vector2 startPosition = getUnitSpawnPosition(player, line);
 
             unit.init(map, startPosition, player.getDirection(), domain);
             gameStage.addActor(unit.getActor());
 
             line.units.add(unit);
-            System.out.println(line.units.size());
-
         }catch(ClassNotFoundException | NoSuchMethodException e){
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -86,5 +98,30 @@ public class UnitsController {
 
     }
 
+    private Unit createUnitClassInstantion(Action.DomainType domain, String unitName) throws IllegalAccessException,
+            InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException {
+        String unitTypePath = getLineClassPathToUnit(domainToUnitType(domain));
+        String classPath = "com.agegame.units." + unitTypePath + "." + unitName;
+        Class myClass = Class.forName(classPath);
+
+        Class[] types = {};
+        Constructor constructor = myClass.getConstructor(types);
+
+        Object[] parameters = {};
+
+        return (Unit) constructor.newInstance(parameters);
+    }
+
+    private Vector2 getUnitSpawnPosition(Player player, MapLine line){
+        Base spawnBase = map.getBase(player.getDirection());
+        return new Vector2( spawnBase.getSpawnXPosition(), line.getPositionY() );
+    }
+
+    private String getLineClassPathToUnit(UnitType unitType){
+        if(unitType == UnitType.LAND_UNIT) return "land_units";
+        else if(unitType == UnitType.AIR_UNIT) return "air_units";
+        else if(unitType == UnitType.WATER_UNIT) return "water_units";
+        else return null;
+    }
 
 }
