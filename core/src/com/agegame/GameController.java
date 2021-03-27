@@ -6,6 +6,7 @@ import com.agegame.map.MapParameters;
 import com.agegame.player.HumanPlayer;
 import com.agegame.player.Player;
 import com.agegame.input.CameraInputProcessor;
+import com.agegame.player.PlayerSI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -59,6 +60,10 @@ public class GameController {
         players[0] = new HumanPlayer();
         players[0].init();
         players[0].setDirection( Direction.direction.LEFT );
+
+        players[1] = new PlayerSI();
+        players[1].init();
+        players[1].setDirection( Direction.direction.RIGHT );
     }
 
     private void initInputMultiplexer(){
@@ -80,11 +85,16 @@ public class GameController {
     public void update(SpriteBatch batch, float delta){
         gameCameraController.updateCamera(batch, delta);
         interfaceController.update(delta);
-        players[0].update();
+        for(Player player : players){
+            player.update();
+        }
+
         gameStage.act(delta);
         gameObjectsController.update(delta);
-        players[0].updateRequestQueue();
 
+        for(Player player : players){
+            player.updateRequestQueue();
+        }
     }
 
     public void draw(SpriteBatch batch){
