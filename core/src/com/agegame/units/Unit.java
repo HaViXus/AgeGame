@@ -22,6 +22,8 @@ public interface Unit {
 
     void damage(float damage, float knockback);
 
+    void dispose();
+
     Actor getActor();
 
     Action.DomainType getDomain();

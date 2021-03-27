@@ -23,7 +23,7 @@ public class UnitHealthBar {
         this.alwaysVisible = alwaysVisible;
         this.positionCenter = positionCenter;
         this.size = size;
-        isVisible = true;
+        isVisible = false;
         value = maxValue;
         changeTimer = 0;
 
@@ -34,8 +34,10 @@ public class UnitHealthBar {
     public void update(float value, float delta){
         changeTimer += delta;
         if(this.value != value){
+            this.value = value;
             changeTimer = 0;
             updateTexture();
+            isVisible = true;
         }
 
         if(!alwaysVisible && isVisible){
@@ -75,5 +77,10 @@ public class UnitHealthBar {
     }
 
     public Vector2 getPosition(){ return positionCenter; }
+
+    public void dispose(){
+        pixmap.dispose();
+        texture.dispose();
+    }
 
 }
