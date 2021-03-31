@@ -93,7 +93,8 @@ public class UnitsController {
     private void handleRequests(Player player){
         for(Request request: player.getRequestQueue().getConstructionRequests()){
             ConstructionRequestData requestData = (ConstructionRequestData) request.getRequestData();
-            if(requestData.domain == Action.DomainType.LAND_UNIT && requestData.requestName.equals("UgaBuga")){
+            if(requestData.domain == Action.DomainType.LAND_UNIT &&
+                    ( requestData.requestName.equals("UgaBuga") || requestData.requestName.equals("Slingshot"))){
                 createUnit(requestData.domain, player, requestData.requestName);
             }
         }

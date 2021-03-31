@@ -6,14 +6,14 @@
 
 	"STONE_AGE": [
 		{
-			"refreshTime": 3.0,
-			"name": "ConstructionSL1",
-			"price": 300
-		},
-		{
 			"refreshTime": 2.0,
 			"name": "UgaBuga",
 			"price": 200
+		},
+		{
+			"refreshTime": 3.0,
+			"name": "Slingshot",
+			"price": 300
 		},
 		{
 			"refreshTime": 8.0,

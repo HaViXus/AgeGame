@@ -173,7 +173,7 @@ public abstract class Unit extends Actor{
         for(Unit unit : landLine.units){
             if(unit != this && unit.getDirection() != direction && unit.getState() != UnitState.DEAD){
                 float distanceX = Math.abs(unit.getPosition().x - position.x);
-                if(distanceX < 100){
+                if(distanceX < 400){
                     Rectangle enemyHitbox = unit.getHitboxes().get(0);
                     for(Rectangle fieldOfView : fieldOfView){
                         if(Intersector.overlaps(enemyHitbox, fieldOfView)){
