@@ -4,6 +4,7 @@ import com.agegame.Direction;
 import com.agegame.health_bar.UnitHealthBar;
 import com.agegame.map.Map;
 import com.agegame.map.MapLine;
+import com.agegame.missile.Missile;
 import com.agegame.player.Action;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
 
@@ -44,6 +46,8 @@ public abstract class Unit extends Actor{
 
     protected float takenDamage;
     protected float takenKnockback;
+
+    protected ArrayList<Missile> createdMissiles;
     
     public void init(Map map, Vector2 startPosition, Direction.direction direction, Action.DomainType domain){
         this.map = map;
@@ -56,6 +60,7 @@ public abstract class Unit extends Actor{
         isDead = false;
         enemyUnitsInRange = new ArrayList<>();
         damageFields = new ArrayList<>();
+        createdMissiles = new ArrayList<>();
     }
 
     public void update(float delta){
@@ -75,6 +80,15 @@ public abstract class Unit extends Actor{
     public void damage(float damage, float knockback) {
         takenDamage += damage;
         takenKnockback += knockback;
+    }
+
+    public void addCreatedMissilesToPool(ArrayList<Missile> missiles){
+        if(createdMissiles != null && createdMissiles.size() > 0){
+            for(Missile missile: createdMissiles) {
+                missiles.add(missile);
+            }
+            createdMissiles.clear();
+        }
     }
 
     protected void initHitboxes(){

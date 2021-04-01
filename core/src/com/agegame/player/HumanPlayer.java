@@ -15,7 +15,7 @@ public class HumanPlayer implements Player{
     public void init() {
         requestQueue = new RequestQueue();
         stats = new PlayerStats();
-        stats.gold = 350;
+        stats.gold = 1000;
         stats.exp = 0;
         stats.era = GameData.gameEras.get(0);
         actionController = new ActionController(stats);

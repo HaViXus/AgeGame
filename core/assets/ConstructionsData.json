@@ -19,6 +19,11 @@
 			"refreshTime": 8.0,
 			"name": "ConstructionSL3",
 			"price": 600
+		},
+		{
+			"refreshTime": 8.0,
+			"name": "Catapult",
+			"price": 600
 		}
 	],
 	"MEDIEVAL":[

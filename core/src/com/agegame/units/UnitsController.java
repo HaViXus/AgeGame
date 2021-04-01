@@ -4,6 +4,7 @@ import com.agegame.Base.Base;
 import com.agegame.Direction;
 import com.agegame.map.Map;
 import com.agegame.map.MapLine;
+import com.agegame.missile.Missile;
 import com.agegame.player.Action;
 import com.agegame.player.Player;
 import com.agegame.request.ConstructionRequestData;
@@ -16,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 
 public class UnitsController {
@@ -28,6 +28,7 @@ public class UnitsController {
     private ArrayList<Unit> rightUnits;
     private ArrayList<DamageField> leftDamageFields;
     private ArrayList<DamageField> rightDamageFields;
+    private ArrayList<Missile> missiles;
 
     public enum UnitType{
         LAND_UNIT(Action.DomainType.LAND_UNIT),
@@ -84,9 +85,18 @@ public class UnitsController {
         handleDeadUnits();
     }
 
+    public ArrayList<Unit> getLeftUnits(){ return leftUnits; }
+
+    public ArrayList<Unit> getRightUnits(){ return rightUnits; }
+
+    public void setMissilesArray(ArrayList<Missile> missiles) {
+        this.missiles = missiles;
+    }
+
     private void updateUnits(MapLine line, float delta){
         for( Unit unit : line.units ){
             unit.update(delta);
+            unit.addCreatedMissilesToPool(missiles);
         }
     }
 
@@ -94,7 +104,8 @@ public class UnitsController {
         for(Request request: player.getRequestQueue().getConstructionRequests()){
             ConstructionRequestData requestData = (ConstructionRequestData) request.getRequestData();
             if(requestData.domain == Action.DomainType.LAND_UNIT &&
-                    ( requestData.requestName.equals("UgaBuga") || requestData.requestName.equals("Slingshot"))){
+                    ( requestData.requestName.equals("UgaBuga") || requestData.requestName.equals("Slingshot") ||
+                            requestData.requestName.equals("Catapult") )){
                 createUnit(requestData.domain, player, requestData.requestName);
             }
         }
