@@ -80,7 +80,7 @@ public class InterfaceController {
                 case WATER_UNIT:
                     buttonImage.setColor(Color.NAVY);
                     break;
-                case TOWER:
+                case TURRET:
                     buttonImage.setColor(Color.VIOLET);
                     break;
 
@@ -91,7 +91,6 @@ public class InterfaceController {
             Action actionConnectedWithButton = null;
             for(Action action: actionsFromDomain){
                 if(action.actionName == constructionData.name){
-                    System.out.println(constructionData.name);
                     actionConnectedWithButton = action;
                     break;
                 }
@@ -176,7 +175,7 @@ public class InterfaceController {
         PanelRenderData turretsData = new PanelRenderData();
         turretsData.image = defaultImage;
         turretsData.disabled = false;
-        turretsData.moveTo = Action.DomainType.TOWER;
+        turretsData.moveTo = Action.DomainType.TURRET;
 
         ArrayList<PanelRenderData> packet = new ArrayList<>();
         packet.add(landUnitData);

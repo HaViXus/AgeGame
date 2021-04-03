@@ -27,7 +27,7 @@ public class PlayerStats {
                 return airUnitsState;
             case WATER_UNIT:
                 return waterUnitsState;
-            case TOWER:
+            case TURRET:
                 return turretsState;
             default:
                 return null;

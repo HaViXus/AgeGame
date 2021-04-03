@@ -32,7 +32,7 @@ public class GameData {
                 return  airUnits;
             case WATER_UNIT:
                 return waterUnits;
-            case TOWER:
+            case TURRET:
                 return turrets;
             default:
                 return null;

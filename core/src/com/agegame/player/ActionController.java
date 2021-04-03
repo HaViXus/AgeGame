@@ -26,6 +26,8 @@ public class ActionController {
         initUnitsActionsForNewEra(GameData.waterUnits.get(playerStats.era),
                 playerStats.waterUnitsState,
                 Action.DomainType.WATER_UNIT);
+        initTurretsActionsForNewEra(GameData.turrets.get(playerStats.era),
+                playerStats.turretsState);
     }
 
     private void initUnitsActionsForNewEra(ArrayList<ConstructionData> unitsData, ArrayList<Action> actionList, Action.DomainType domain){
@@ -36,6 +38,17 @@ public class ActionController {
                 actionState = Action.ActionState.DISABLED;
             }
                 actionList.add( new Action(domain, unit.name, actionState) );
+        }
+    }
+
+    private void initTurretsActionsForNewEra(ArrayList<ConstructionData> turretsData, ArrayList<Action> actionList){
+        actionList.clear();
+        for(ConstructionData turret : turretsData) {
+            Action.ActionState actionState = Action.ActionState.READY;
+            if(turret.price > playerStats.gold) {
+                actionState = Action.ActionState.DISABLED;
+            }
+            actionList.add( new Action(Action.DomainType.TURRET, turret.name, actionState) );
         }
     }
 
@@ -82,8 +95,6 @@ public class ActionController {
 
             action.state = actionState;
         }
-
-
     }
 
     private boolean isActionInProgress(Action action, Action.DomainType domain){

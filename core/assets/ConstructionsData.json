@@ -100,7 +100,7 @@
   "turrets": {
 	"STONE_AGE": [
 		{
-			"name": "TurretS1",
+			"name": "TestTurret",
 			"price": 500
 		}
 	],

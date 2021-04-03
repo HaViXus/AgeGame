@@ -2,7 +2,7 @@ package com.agegame.player;
 
 public class Action {
 
-    public enum DomainType {LAND_UNIT, AIR_UNIT, WATER_UNIT, TOWER, SELL};
+    public enum DomainType {LAND_UNIT, AIR_UNIT, WATER_UNIT, TOWER, TURRET, SELL};
     public enum ActionState {READY, WAITING, DISABLED};
 
     public DomainType domain;
