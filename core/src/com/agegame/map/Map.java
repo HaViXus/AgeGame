@@ -1,8 +1,10 @@
 package com.agegame.map;
 
 import com.agegame.Base.Base;
+import com.agegame.Base.DefaultBase;
 import com.agegame.Direction;
 import com.agegame.player.Action;
+import com.agegame.player.Player;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,11 +19,11 @@ public class Map {
     private Base[] bases;
     private Stage gameStage;
     private HashMap<Action.DomainType, MapLine> lines;
-    public Map(MapParameters mapParameters, Stage gameStage){
+    public Map(MapParameters mapParameters, Stage gameStage, Player[] players){
         this.mapParameters = mapParameters;
         this.gameStage = gameStage;
         createBackground();
-        createBases();
+        createBases(players);
         createLines();
     }
 
@@ -42,16 +44,26 @@ public class Map {
         backgroundPixmap.dispose();
     }
 
-    private void createBases(){
+    private void createBases(Player[] players){
         bases = new Base[2];
-        bases[0] = new Base(Direction.direction.LEFT, new Vector2(0,200));
-        bases[1] = new Base(Direction.direction.RIGHT, new Vector2(mapParameters.width, 200));
+        bases[0] = new DefaultBase(Direction.direction.LEFT, new Vector2(0,200), players[0]);
+        bases[1] = new DefaultBase(Direction.direction.RIGHT, new Vector2(mapParameters.width, 200), players[1]);
 
     }
 
     private void createLines(){
         lines = new HashMap<>();
         lines.put(Action.DomainType.LAND_UNIT, new MapLine(200));
+    }
+
+    public void update(){
+        updateBases();
+    }
+
+    private void updateBases(){
+        for(Base base : bases){
+            base.update();
+        }
     }
 
     public void draw(){

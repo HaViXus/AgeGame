@@ -1,6 +1,7 @@
 package com.agegame.Base;
 
 import com.agegame.Direction;
+import com.agegame.player.Player;
 import com.agegame.utils.PixmapModifier;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -9,16 +10,18 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Base extends Actor {
+public abstract class Base extends Actor {
     private int HP;
     private Texture texture;
     private Direction.direction baseDirection;
     private Vector2 position;
     private Vector2 baseSize = new Vector2(190, 190);
+    private Player player;
 
-    public Base(Direction.direction baseDirection, Vector2 position){
+    public Base(Direction.direction baseDirection, Vector2 position, Player player){
         this.baseDirection = baseDirection;
         this.position = getCorrectPosition(position);
+        this.player = player;
         setBounds(position.x, position.y, baseSize.x, baseSize.y);
 
         createBase();
@@ -41,6 +44,8 @@ public class Base extends Actor {
         texture = new Texture( backgroundPixmap );
         backgroundPixmap.dispose();
     }
+
+    abstract public void update();
 
     private Vector2 getCorrectPosition(Vector2 position){
         if(baseDirection == Direction.direction.RIGHT){

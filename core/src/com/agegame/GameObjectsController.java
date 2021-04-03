@@ -15,13 +15,13 @@ public class GameObjectsController {
     private MissilesController missilesController;
 
     public GameObjectsController(MapParameters mapParameters, Stage gameStage, Player[] players){
-        initController(mapParameters, gameStage);
+        initController(mapParameters, gameStage, players);
         initUnitsController(mapController.getMap(), gameStage, players);
         initMissileController();
     }
 
-    public void initController(MapParameters mapParameters, Stage gameStage){
-        mapController = new MapController(mapParameters, gameStage);
+    public void initController(MapParameters mapParameters, Stage gameStage, Player[] players){
+        mapController = new MapController(mapParameters, gameStage, players);
     }
 
     public void initUnitsController(Map map, Stage gameStage, Player[] players){
@@ -37,6 +37,7 @@ public class GameObjectsController {
     public void update(float delta){
         unitsController.update(delta);
         missilesController.update(delta);
+        mapController.update();
     }
 
     public void draw(){
