@@ -2,6 +2,7 @@ package com.agegame.Base;
 
 import com.agegame.Direction;
 import com.agegame.player.Player;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 
 public class DefaultBase extends Base{
@@ -11,7 +12,7 @@ public class DefaultBase extends Base{
     }
 
     public void update(){
-
+        handleRequests();
     }
 
 }

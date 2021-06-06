@@ -28,6 +28,19 @@ public class ActionController {
                 Action.DomainType.WATER_UNIT);
         initTurretsActionsForNewEra(GameData.turrets.get(playerStats.era),
                 playerStats.turretsState);
+
+        initTowerActions();
+    }
+
+    private void initTowerActions() {
+        ArrayList<Action> towerActionList = playerStats.towersState;
+        Action.ActionState addTowerState = Action.ActionState.READY;
+        if(playerStats.getTowersNumber() >= playerStats.maxTowers || playerStats.gold < GameData.towerPrices.get(playerStats.getTowersNumber())){
+            addTowerState = Action.ActionState.DISABLED;
+        }
+
+        Action addTower = new Action(Action.DomainType.TOWER, "addTower", addTowerState);
+        towerActionList.add(addTower);
     }
 
     private void initUnitsActionsForNewEra(ArrayList<ConstructionData> unitsData, ArrayList<Action> actionList, Action.DomainType domain){
@@ -54,6 +67,7 @@ public class ActionController {
 
     public void updateActions(RequestQueue requestQueue){
         updateLandUnitsActions(requestQueue);
+        updateTowerPossibleActions();
     }
 
     private void updateLandUnitsActions(RequestQueue requestQueue){
@@ -94,6 +108,18 @@ public class ActionController {
             }
 
             action.state = actionState;
+        }
+    }
+
+    private void updateTowerPossibleActions(){
+        for(Action action : playerStats.towersState){
+            if(action.actionName == "addTower"){
+                if(playerStats.maxTowers <= playerStats.getTowersNumber() || playerStats.gold < GameData.towerPrices.get(playerStats.getTowersNumber())){
+                    action.state = Action.ActionState.DISABLED;
+                }else{
+                    action.state = Action.ActionState.READY;
+                }
+            }
         }
     }
 

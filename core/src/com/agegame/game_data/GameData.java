@@ -4,6 +4,7 @@ import com.agegame.player.Action;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ public class GameData {
     public static HashMap<String, ArrayList<ConstructionData>> airUnits;
     public static HashMap<String, ArrayList<ConstructionData>> waterUnits;
     public static HashMap<String, ArrayList<ConstructionData>> turrets;
+    public static ArrayList<Integer> towerPrices;
     public static ArrayList<String> gameEras = new ArrayList();
 
     private JsonValue constructionDataJSON;
@@ -21,6 +23,7 @@ public class GameData {
         initJSONData();
         initGameEras();
         initUnits();
+        initTowersPrices();
         initTurrets();
     }
 
@@ -92,10 +95,30 @@ public class GameData {
         unitsFromEra.add(unitData);
     }
 
+    private void unitTowersPricesFromJson(){
+        JsonValue towerPricesJson = constructionDataJSON.get("towerPrices");
+        for(int i=0; i<towerPricesJson.size; i++){
+            towerPrices.add(towerPricesJson.getInt(i));
+        }
+    }
+
+    private void initTowersPrices(){
+        towerPrices = new ArrayList<>();
+        unitTowersPricesFromJson();
+
+    }
+
     private void initTurrets(){
         turrets = new HashMap<>();
         JsonValue turretsJson = constructionDataJSON.get("turrets");
         initTurretsFromJson(turretsJson, turrets);
+    }
+
+    private void initTurrets(JsonValue turret, ArrayList<ConstructionData> turretsFromEra){
+        String name = turret.getString("name");
+        int price = turret.getInt("price");
+        ConstructionData turretData = new ConstructionData(name, price);
+        turretsFromEra.add(turretData);
     }
 
     private void initTurretsFromJson(JsonValue turrets, HashMap turretsMap){
@@ -108,10 +131,6 @@ public class GameData {
         }
     }
 
-    private void initTurrets(JsonValue turret, ArrayList<ConstructionData> turretsFromEra){
-        String name = turret.getString("name");
-        int price = turret.getInt("price");
-        ConstructionData turretData = new ConstructionData(name, price);
-        turretsFromEra.add(turretData);
-    }
+
+
 }

@@ -57,6 +57,9 @@ public class InterfaceController {
             case LAND_UNIT:
                 return getConstructionPanelDataPacket();
 
+            case TOWER:
+                return getTowerConstructionPanelDataPacket();
+
             default:
                 System.out.println("Nie prawidłowy state intefejsu!");
                 return getConstructionPanelDataPacket();
@@ -124,6 +127,48 @@ public class InterfaceController {
         return dataPacket;
     }
 
+    private PanelRenderDataPacket getTowerConstructionPanelDataPacket(){
+
+        ArrayList<PanelRenderData> packet = new ArrayList<>();
+
+        Pixmap buttonImage;
+        buttonImage = new Pixmap(20, 20, Pixmap.Format.RGBA8888);
+        buttonImage.setColor(Color.GOLD);
+        buttonImage.fill();
+
+        ArrayList<Action> actionsFromDomain = player.getStats().getActionByDomain(state);
+        Action actionConnectedWithButton = null;
+        for(Action action: actionsFromDomain){
+            if(action.actionName == "addTower"){
+                actionConnectedWithButton = action;
+                break;
+            }
+        }
+
+        Action finalActionConnectedWithButton = actionConnectedWithButton;
+        Runnable onAddTowerClick = () -> {
+            String era = player.getStats().era;
+            long time = System.currentTimeMillis();
+            ConstructionRequest constructionRequest = new ConstructionRequest(era, time, finalActionConnectedWithButton.actionName, state);
+            player.getRequestQueue().addRequest(constructionRequest);
+            System.out.println("Clicked T: " + finalActionConnectedWithButton.actionName );
+        };
+
+        if(actionConnectedWithButton != null){
+            PanelRenderData buttonData = new PanelRenderData();
+            buttonData.image = buttonImage;
+            buttonData.onClick = onAddTowerClick;
+            buttonData.disabled = ( actionConnectedWithButton.state == Action.ActionState.DISABLED || actionConnectedWithButton.state == Action.ActionState.WAITING);
+            buttonData.progress = 1;
+            buttonData.relatedActionName = actionConnectedWithButton.actionName;
+            packet.add(buttonData);
+        }
+
+        PanelRenderDataPacket dataPacket = new PanelRenderDataPacket(packet);
+
+        return dataPacket;
+    }
+
     private void updateConstructionPanelDataPacket() {
 
         ArrayList<Action> actionsFromDomain = player.getStats().getActionByDomain(state);
@@ -139,12 +184,18 @@ public class InterfaceController {
             }
 
             float constructionTime = -1;
-            for(ConstructionData construction: GameData.getDataFromDomain(state).get(player.getStats().era)){
-                if(construction.name == buttonData.relatedActionName){
-                    constructionTime = construction.constructionTime;
-                    break;
+            if(state != Action.DomainType.TOWER)
+            {
+                for(ConstructionData construction: GameData.getDataFromDomain(state).get(player.getStats().era)){
+                    if(construction.name == buttonData.relatedActionName){
+                        constructionTime = construction.constructionTime;
+                        break;
+                    }
                 }
+            }else{
+                constructionTime = 1;
             }
+
 
             buttonData.disabled = ( actionConnectedWithButton.state == Action.ActionState.DISABLED || actionConnectedWithButton.state == Action.ActionState.WAITING);
             buttonData.progress = (System.currentTimeMillis() - actionConnectedWithButton.useTime) / ( constructionTime * 1000 );
@@ -177,11 +228,17 @@ public class InterfaceController {
         turretsData.disabled = false;
         turretsData.moveTo = Action.DomainType.TURRET;
 
+        PanelRenderData towerData = new PanelRenderData();
+        towerData.image = defaultImage;
+        towerData.disabled = false;
+        towerData.moveTo = Action.DomainType.TOWER;
+
         ArrayList<PanelRenderData> packet = new ArrayList<>();
         packet.add(landUnitData);
         packet.add(airUnitData);
         packet.add(waterUnitData);
         packet.add(turretsData);
+        packet.add(towerData);
         PanelRenderDataPacket dataPacket = new PanelRenderDataPacket(packet);
 
         return dataPacket;
